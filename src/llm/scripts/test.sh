@@ -1,5 +1,5 @@
 #!/bin/bash
-curl --location http://localhost:11434/api/chat \
+curl -k --location http://localhost:11434/api/chat \
     --header 'Content-Type: application/json' \
     --data '{
             "model": "llama3.2:3b",
