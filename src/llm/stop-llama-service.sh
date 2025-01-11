@@ -1,3 +1,3 @@
 #!/bin/bash
-echo "Stopping Ollama service"
+echo "Stopping Ollama Service"
 sudo systemctl stop ollama
