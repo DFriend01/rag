@@ -1,5 +1,5 @@
 #!/bin/bash
-echo "Startign Ollama Service"
+echo "Starting Ollama Service"
 sudo systemctl start ollama
 
 NSEC=5
