@@ -1,0 +1,6 @@
+bs4
+faiss-cpu
+langchain
+langchain-community
+langchain-ollama
+sentence-transformers
