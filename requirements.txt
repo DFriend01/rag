@@ -1,6 +1,8 @@
 bs4
 faiss-cpu
+fastapi
 langchain
 langchain-community
 langchain-ollama
 sentence-transformers
+uvicorn
