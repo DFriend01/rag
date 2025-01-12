@@ -42,8 +42,8 @@ async def retrieve(request: QueryRequest):
 
 @app.get("/shutdown")
 async def shutdown():
-    os.kill(os.getpid(), signal=signal.SIGINT)
-    return fastapi.Response(status_code=200, content="Shutting down")
+    os.kill(os.getpid(), signal.SIGINT)
+    return fastapi.Response(status_code=200, content="Shutting down vectorstore server")
 
 if __name__ == '__main__':
     import uvicorn

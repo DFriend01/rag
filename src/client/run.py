@@ -59,6 +59,7 @@ qa_prompt = ChatPromptTemplate.from_messages(
 question_answer_chain = create_stuff_documents_chain(llm, qa_prompt)
 rag_chain = create_retrieval_chain(history_aware_retriever, question_answer_chain)
 
+print("Type 'quit' or CTRL + C to exit the chat.")
 if __name__ == "__main__":
     query = None
     chat_history = []
