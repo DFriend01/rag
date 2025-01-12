@@ -3,6 +3,7 @@ faiss-cpu
 fastapi
 langchain
 langchain-community
+langchain-huggingfaces
 langchain-ollama
 sentence-transformers
 uvicorn

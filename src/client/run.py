@@ -9,8 +9,8 @@ class APIRetriever(BaseRetriever):
     def _get_relevant_documents(self, query: str):
         response = requests.post("http://127.0.0.1:5000/retrieve", json={"query": query})
         response.raise_for_status()
-        results = response.json()
-        return [Document(page_content=result["text"]) for result in results]
+        documents = response.json()["documents"]
+        return [Document(page_content=document["text"]) for document in documents]
 
 
 llm = OllamaLLM(base_url="http://127.0.0.1:11434", model="llama3.2:3b")
