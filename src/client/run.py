@@ -70,4 +70,4 @@ def get_response(message: str, history: List[Dict]) -> str:
     return result["answer"]
 
 if __name__ == "__main__":
-    gr.ChatInterface(fn=get_response, type="messages", title="RAG Chatbot").launch()
+    gr.ChatInterface(fn=get_response, type="messages", title="RAG Chatbot").launch(server_port=10000)
