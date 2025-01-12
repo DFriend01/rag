@@ -7,7 +7,6 @@ from langchain_community.embeddings import HuggingFaceEmbeddings
 from langchain.schema import Document
 import os
 
-
 # Load the FAISS vectorstore with the code documents
 loader = FileSystemBlobLoader(
     path=os.path.join(os.path.dirname(__file__), "documents"),
@@ -34,7 +33,7 @@ async def retrieve(request: QueryRequest):
 
     # Retrieve relevant documents from the vectorstore
     retriever = vectorstore.as_retriever()
-    documents = retriever.get_relevant_documents(query)
+    documents = retriever.invoke(query)
 
     # Format the response
     response = [{"text": doc.page_content} for doc in documents]
