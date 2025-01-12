@@ -3,6 +3,8 @@ from langchain.chains.combine_documents import create_stuff_documents_chain
 from langchain_core.prompts import ChatPromptTemplate, MessagesPlaceholder
 from langchain_ollama import OllamaLLM
 from langchain.schema import BaseRetriever, Document
+from typing import List, Dict, Tuple
+import gradio as gr
 import requests
 
 class APIRetriever(BaseRetriever):
@@ -28,7 +30,7 @@ contextualize_q_prompt = ChatPromptTemplate.from_messages(
     [
         ("system", contextualize_q_system_prompt),
         MessagesPlaceholder("chat_history"),
-        ("human", "{input}"),
+        ("user", "{input}"),
     ]
 )
 history_aware_retriever = create_history_aware_retriever(
@@ -49,7 +51,7 @@ qa_prompt = ChatPromptTemplate.from_messages(
     [
         ("system", qa_system_prompt),
         MessagesPlaceholder("chat_history"),
-        ("human", "{input}"),
+        ("user", "{input}"),
     ]
 )
 
@@ -59,19 +61,13 @@ qa_prompt = ChatPromptTemplate.from_messages(
 question_answer_chain = create_stuff_documents_chain(llm, qa_prompt)
 rag_chain = create_retrieval_chain(history_aware_retriever, question_answer_chain)
 
-print("Type 'quit' or CTRL + C to exit the chat.")
+def dict_messages_to_tuple_messages(messages: List[Dict]) -> List[Tuple[str, str]]:
+    return [(message["role"], message["content"]) for message in messages]
+
+def get_response(message: str, history: List[Dict]) -> str:
+    chat_history = dict_messages_to_tuple_messages(history)
+    result = rag_chain.invoke({"input": message, "chat_history": chat_history})
+    return result["answer"]
+
 if __name__ == "__main__":
-    query = None
-    chat_history = []
-    while (query != "quit"):
-        query = input("You: ")
-        if query == "quit":
-            break
-
-        result = rag_chain.invoke({"input": query, "chat_history": chat_history})
-        response = result["answer"]
-
-        print(f"Bot: {response}")
-
-        chat_history.append(("human", query))
-        chat_history.append(("ai", response))
+    gr.ChatInterface(fn=get_response, type="messages", title="RAG Chatbot").launch()

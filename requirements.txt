@@ -1,6 +1,7 @@
 bs4
 faiss-cpu
 fastapi
+gradio
 langchain
 langchain-community
 langchain-huggingfaces
