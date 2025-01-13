@@ -71,6 +71,23 @@ your processes to make sure they stopped using
 [`ps`](https://linuxjourney.com/lesson/monitor-processes-ps-command) and
 [`kill`](https://linuxjourney.com/lesson/killing-processes).
 
+An example of how to do this:
+
+```bash
+# List your processes, if you see something like the first three listed, then stop them
+> ps -au
+USER      PID %CPU %MEM    VSZ   RSS TTY      STAT START   TIME COMMAND
+user    27659  0.0  0.0   4920  3748 pts/0    S+   00:18   0:00 /bin/bash ./run.sh
+user    27780 20.3 14.4 27987540 1152584 pts/0 Sl+ 00:18   0:13 python src/vectorstore/server.py
+user    27781  8.3  2.2 901180 181000 pts/0   Sl+  00:18   0:05 python src/client/run.py
+user    27782  0.0  0.0   3248  1000 pts/0    S+   00:18   0:00 tail -f /dev/null
+user    28224  0.0  0.0   7488  3224 pts/2    R+   00:19   0:00 ps -au
+
+# Stop the processes that are running the run.sh script, vectorstore, and client
+# using the PIDs
+> kill 27659 27780 27781
+```
+
 ## Resources
 
 - [arXiv: Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks](https://arxiv.org/abs/2005.11401)
