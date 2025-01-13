@@ -66,6 +66,8 @@ document_matching:
 Run the system with `./run.sh`. The first run will take some time to set up. Once it is complete,
 open `http://localhost:10000` in your favourite browser and ask the chatbot about your documents!
 
+### Stopping the RAG
+
 Use `CTRL + C` to stop the RAG. Sometimes, not all of the processes will stop so you should check
 your processes to make sure they stopped using
 [`ps`](https://linuxjourney.com/lesson/monitor-processes-ps-command) and
