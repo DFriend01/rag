@@ -50,4 +50,5 @@ echo "Open client at http://localhost:10000"
 
 echo "Startup complete. Press Ctrl+C to stop"
 
+# Let the script hang until it is interrupted
 tail -f /dev/null
