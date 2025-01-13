@@ -6,5 +6,6 @@ langchain
 langchain-community
 langchain-huggingfaces
 langchain-ollama
+pyyaml
 sentence-transformers
 uvicorn

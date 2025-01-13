@@ -1,0 +1,11 @@
+document_matching:
+  # The documents read into the vector store. File extensions with the dot are expected.
+  allowed_file_extensions: [".py", ".md"]
+  # Patterns to exclude from vector store. Glob expressions are expected.
+  # Curly brace notation is not supported for some reason...
+  excluded: ["**/.*"]
+document_splitter:
+  # The max size in characters of each document chunk.
+  chunk_size: 500
+  # The overlap between each chunk in characters.
+  chunk_overlap: 200

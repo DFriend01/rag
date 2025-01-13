@@ -8,15 +8,22 @@ import fastapi
 import os
 import signal
 import json
+import yaml
+
+# Load server configuration
+with open(os.path.join(os.path.dirname(__file__), "config.yaml"), "r") as config_file:
+    config = yaml.safe_load(config_file)
 
 # Load the FAISS vectorstore with the code documents
 loader = FileSystemBlobLoader(
     path=os.path.join(os.path.dirname(__file__), "documents"),
-    glob="**/*.py",
+    glob="**/*",
+    exclude=config["document_matching"]["excluded"],
+    suffixes=config["document_matching"]["allowed_file_extensions"],
     show_progress=True
 )
 docs = [Document(page_content=blob.as_string()) for blob in loader.yield_blobs()]
-text_splitter = RecursiveCharacterTextSplitter(chunk_size=500, chunk_overlap=200)
+text_splitter = RecursiveCharacterTextSplitter(**config["document_splitter"])
 splits = text_splitter.split_documents(documents=docs)
 vectorstore = FAISS.from_documents(documents=splits, embedding=HuggingFaceEmbeddings(model_name="sentence-transformers/all-mpnet-base-v2"))
 
