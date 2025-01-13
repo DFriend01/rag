@@ -27,7 +27,16 @@ class QueryRequest(BaseModel):
     query: str
 
 @app.post("/retrieve")
-async def retrieve(request: QueryRequest):
+async def retrieve(request: QueryRequest) -> fastapi.Response:
+    """Retrieves documents relevant to the query
+
+    Args:
+        request (QueryRequest): The request payload containing the query
+
+    Returns:
+        fastapi.Response: Response containing the relevant documents.
+        If the query is empty, a 400 response is returned.
+    """
     query = request.query
     if not query:
         return fastapi.Response(status_code=400, content="Query not provided")
@@ -41,7 +50,12 @@ async def retrieve(request: QueryRequest):
     return fastapi.Response(status_code=200, content=json.dumps(response))
 
 @app.get("/shutdown")
-async def shutdown():
+async def shutdown() -> fastapi.Response:
+    """Shuts down the vectorstore server
+
+    Returns:
+        fastapi.Response: Response indicating that the server is shutting down
+    """
     os.kill(os.getpid(), signal.SIGINT)
     return fastapi.Response(status_code=200, content="Shutting down vectorstore server")
 

@@ -1,6 +1,10 @@
 #!/bin/bash
-mkdir logs
+if [ ! -d "logs" ]; then
+    mkdir logs
+fi
+
 source venv/bin/activate
+
 ./src/llm/start-llama-service.sh
 
 echo "Starting Vectorstore Service"
